@@ -1,0 +1,17 @@
+.header {
+    background-color: #1B035C;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #e8e8e8;
+
+    .log-in {
+        background-color: #e8e8e8;
+        color: #1B035C;
+        font-size: 20px;
+        font-weight: 500;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+}

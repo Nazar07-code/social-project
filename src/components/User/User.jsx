@@ -1,77 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-import "./User.css";
-const User = () => {
-  const [isActive, setIsActive] = useState("posts");
-  const handleActive = (overlined) => {
-    setIsActive(overlined);
-    localStorage.setItem("activeLink", overlined);
-  };
-  const isActiveLink = (overlined) => {
-    return isActive === overlined ? "overline" : "";
-  };
-  useEffect(() => {
-    const activeLink = localStorage.getItem("activeLink");
-    if (activeLink) setIsActive(activeLink);
-  });
 
+import "./User.css";
+
+const User = () => {
   return (
-    <div className="my-[20px]">
-      <div className="flex justify-center gap-5">
-        <div className="">
+    <>
+      <div className="info flex justify-center items-center gap-5 px-1">
+        <div className="avatar">
           <img
-            className="w-[120px] h-[120px] bg-gray-300 rounded-full"
+            className="w-[120px] h-[120px] mr-1 bg-gray-300 rounded-full"
             src="/images/avatar-default.svg"
-            alt=""
+            alt="avatar"
           />
         </div>
+
         <div className="flex flex-col gap-5">
-          <div className="title flex gap-20 items-center">
-            <div className="name text-[20px] w-[100px]">Nazar</div>
-            <div className="edit">
-              <button>Edit profile</button>
-            </div>
-            <div className="log-out">
-              <button>Log out</button>
+          <div className="">
+            <div className="flex items-center justify-between">
+              <div className="name text-[20px]">Nazar</div>
+              <div className="nickname font-bold">@BOBER</div>
+              <div>
+                <Link to="/me/createPost" className="add-post">
+                  Add new post
+                </Link>
+                <Link to="/me/createPost" className="add-post plus">
+                  <img src="/images/add-post.svg" alt="" />
+                </Link>
+              </div>
             </div>
           </div>
-          <div className="counts flex items-center">
-            <p className="w-[200px]">Subscribes 222</p>
-            <p className="w-[200px]">Subscribers 111</p>
-            <p className="w-[200px]">Posts 11</p>
-          </div>
-          <div className="flex items-center gap-5">
-            <div className="nickname font-bold">@BOBER</div>
-            <Link to="/me/createPost" className="add-post">
-              <button>Add new post</button>
-            </Link>
+          <div className="counts text-center flex items-center gap-10">
+            <p className="">Subscribes 222</p>
+            <p className="">Subscribers 111</p>
+            <p className="">Posts 11</p>
           </div>
         </div>
       </div>
-      <div className="links flex justify-center gap-20 mt-[40px]">
-        <Link
-          to="/me/posts"
-          className={isActiveLink("posts")}
-          onClick={() => handleActive("posts")}
-        >
-          Posts
-        </Link>
-        <Link
-          to="/me/favorites"
-          className={isActiveLink("favorite")}
-          onClick={() => handleActive("favorite")}
-        >
-          Favorites
-        </Link>
-        <Link
-          to="/me/saved"
-          className={isActiveLink("saved")}
-          onClick={() => handleActive("saved")}
-        >
-          Saved
-        </Link>
+
+      <div className="links flex justify-center gap-20 mt-[40px] text-[20px]">
+        <Link to="/me/posts">Posts</Link>
+        <Link to="/me/favorites">Favorites</Link>
+        <Link to="/me/saved">Saved</Link>
       </div>
-    </div>
+    </>
   );
 };
 

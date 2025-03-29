@@ -1,4 +1,4 @@
-.posts {
+.favorite-posts {
     display: grid;
     grid-template-columns: repeat(3, 300px);
     margin: 40px auto;
@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
 
-    .post {
+    .favorite-post {
         border: 1px solid black;
         position: relative;
 
@@ -26,10 +26,10 @@
 }
 
 @media (max-width:1024px) {
-    .posts {
+    .favorite-posts {
         grid-template-columns: repeat(3, 250px);
 
-        .post {
+        .favorite-post {
             .img {
                 height: 300px;
             }
@@ -38,10 +38,10 @@
 }
 
 @media (max-width:768px) {
-    .posts {
+    .favorite-posts {
         grid-template-columns: repeat(3, 200px);
 
-        .post {
+        .favorite-post {
             .img {
                 height: 250px;
             }
@@ -50,10 +50,10 @@
 }
 
 @media (max-width:650px) {
-    .posts {
+    .favorite-posts {
         grid-template-columns: repeat(3, 170px);
 
-        .post {
+        .favorite-post {
             .img {
                 height: 220px;
             }
@@ -62,10 +62,10 @@
 }
 
 @media (max-width:530px) {
-    .posts {
+    .favorite-posts {
         grid-template-columns: repeat(3, 150px);
 
-        .post {
+        .favorite-post {
             .img {
                 height: 200px;
             }
@@ -74,10 +74,10 @@
 }
 
 @media (max-width:470px) {
-    .posts {
+    .favorite-posts {
         grid-template-columns: repeat(3, 130px);
 
-        .post {
+        .favorite-post {
             .img {
                 height: 170px;
             }
@@ -86,10 +86,10 @@
 }
 
 @media (max-width:400px) {
-    .posts {
+    .favorite-posts {
         grid-template-columns: repeat(3, 120px);
 
-        .post {
+        .favorite-post {
             .img {
                 height: 140px;
             }

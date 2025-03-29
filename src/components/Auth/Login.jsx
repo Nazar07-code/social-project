@@ -7,6 +7,7 @@ const Login = () => {
 
   return (
     <form className="login">
+      <h1 className="text-[50px] font-medium">L O G I N</h1>
       <div className="input">
         <input type="email" placeholder="Email" required />
         <img src="/images/mail.svg" alt="Email icon" />

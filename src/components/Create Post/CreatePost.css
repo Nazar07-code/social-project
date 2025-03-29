@@ -1,0 +1,45 @@
+.create-post {
+    margin: 20px auto 0;
+    padding: 20px;
+    border: 1px solid #e8e8e8;
+    border-radius: 20px;
+
+    .import-file {
+        width: 100%;
+        border: 2px solid #e8e8e8;
+        border-radius: 20px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        height: 400px;
+        object-fit: cover;
+    }
+
+    input {
+        width: 100%;
+        background-color: #e8e8e8;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .description-input {
+        border-radius: 20px;
+        background-color: #e8e8e8;
+        outline: none;
+    }
+
+    .create {
+        color: #e8e8e8;
+        padding: 20px;
+        border-radius: 20px;
+        background-color: #1B035C;
+        transition: all .2s linear;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #3808bb;
+        }
+    }
+}

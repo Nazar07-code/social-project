@@ -1,11 +1,11 @@
 import React from "react";
-import "./Post.css";
+import "./Saved.css";
 import { Link } from "react-router";
-const Posts = () => {
+const Saved = () => {
   return (
-    <div className="posts">
+    <div className="saved-posts">
       <Link>
-        <div className="post">
+        <div className="saved-post">
           <img className="img" src="" alt="" />
           <div className="overlay w-[25px] rounded-full p-1">
             <img src="/images/more.svg" alt="" />
@@ -13,7 +13,7 @@ const Posts = () => {
         </div>
       </Link>
       <Link>
-        <div className="post">
+        <div className="saved-post">
           <img className="img" src="" alt="" />
           <div className="overlay w-[25px] rounded-full p-1">
             <img src="/images/more.svg" alt="" />
@@ -21,7 +21,7 @@ const Posts = () => {
         </div>
       </Link>
       <Link>
-        <div className="post">
+        <div className="saved-post">
           <img className="img" src="" alt="" />
           <div className="overlay w-[25px] rounded-full p-1">
             <img src="/images/more.svg" alt="" />
@@ -32,4 +32,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default Saved;

@@ -13,7 +13,6 @@ function Register() {
       setFilename("");
       return;
     }
-    setFilename(file.name);
     const reader = new FileReader();
     reader.onloadend = () => {
       setAvatarPreview(reader.result);
@@ -22,7 +21,7 @@ function Register() {
   };
 
   return (
-    <div className="auth">
+    <div className="register">
       <form action="">
         <div className="avatar">
           <input
@@ -40,7 +39,9 @@ function Register() {
                 className="w-full h-full rounded-full object-cover"
               />
             ) : (
-              <div className="w-full h-full rounded-full flex items-center justify-center"></div>
+              <div className="w-full h-full rounded-full flex items-center justify-center">
+                <img className=" w-[35px]" src="/images/photo.svg" alt="" />
+              </div>
             )}
           </label>
         </div>

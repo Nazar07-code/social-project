@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router';
 import './App.css';
-import Register from './components/Auth/Register';
-import Login from './components/Auth/Login';
+import Register from './pages/Auth/Register';
+import Login from './pages/Auth/Login';
 import Home from './pages/Home';
 import Header from './components/Header/Header';
 import User from './components/User/User';
 import Posts from './components/Posts/Posts';
 import Favorites from './components/Favorites/Favorites';
 import Saved from './components/Saved/Saved';
-import CreatePost from './components/Create Post/CreatePost';
+import CreatePost from './pages/Create Post/CreatePost';
 
 
 const MainLayout = ({ children }) => (

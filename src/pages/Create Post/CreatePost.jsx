@@ -28,13 +28,13 @@ const CreatePost = () => {
             <input className="hidden" type="file" accept="image/*,video/*" />
             {mediaPreview ? (
               <img
-                className="h-[400px] rounded-[20px]"
+                className="imported h-[400px] rounded-[20px]"
                 src={mediaPreview}
                 alt=""
               />
             ) : (
               <img
-                className="h-[150px] w-[150px]"
+                className="import-img h-[150px] w-[150px]"
                 src="/images/folder-add.svg"
                 alt=""
               />

@@ -43,3 +43,50 @@
         }
     }
 }
+
+@media (max-width:680px) {
+    .create-post {
+        width: 500px;
+
+        .import-file {
+            height: 350px;
+
+            .imported {
+                height: 350px;
+            }
+
+            .import-img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+}
+
+@media (max-width:550px) {
+    .create-post {
+        width: 400px;
+
+        .import-file {
+            height: 300px;
+
+            .imported {
+                height: 300px;
+            }
+        }
+    }
+}
+
+@media (max-width:450px) {
+    .create-post {
+        width: 330px;
+
+        .import-file {
+            height: 250px;
+
+            .imported {
+                height: 250px;
+            }
+        }
+    }
+}

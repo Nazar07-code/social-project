@@ -1,6 +1,6 @@
 .comments {
     position: fixed;
-    right: -480px;
+    right: -100%;
     top: 0;
     width: 480px;
     height: 100%;
@@ -18,4 +18,9 @@
     position: absolute;
     width: 30px;
     right: 10px;
+}
+@media (max-width:768px) {
+    .comments{
+        width: 100%;
+    }
 }

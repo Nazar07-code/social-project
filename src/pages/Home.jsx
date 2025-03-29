@@ -26,7 +26,7 @@ function Home() {
   };
 
   return (
-    <div className="main-posts flex flex-col justify-center items-center gap-[100px]">
+    <div className="main-posts my-10 flex flex-col justify-center items-center gap-[100px]">
       {/* {posts.map((post) => (
         <div
           key={post.id}
@@ -69,15 +69,15 @@ function Home() {
         </div>
       ))} */}
       <div className="main-post w-[600px] flex flex-col gap-5 overflow-hidden">
-        <img className="h-[400px]" src="/img.jpg" alt="" />
+        <img className="photo h-[400px]" src="/img.jpg" alt="" />
         <div className="p-4 flex flex-col gap-4">
           <div className="user flex gap-4 items-center">
             <img
-              className="rounded-none w-8 h-8"
+              className="rounded-full w-8 h-8"
               src="/images/avatar-default.svg"
               alt=""
             />
-            <h1>vherifdjknvdf</h1>
+            <h1 className="text-[20px] font-semibold">vherifdjknvdf</h1>
           </div>
           <b className="tags">#bgfb, #gfdd</b>
           <p>

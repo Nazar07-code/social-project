@@ -1,40 +1,78 @@
-.main-posts {
-    margin-bottom: 60px;
+.main-post {
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
 
-    .main-post {
-        box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.6);
-        border-radius: 20px;
+    img {
+        object-fit: cover;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+    }
 
+    p {
+        font-size: 15px;
+        font-weight: 400;
+        min-height: 100px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .btns {
         img {
-            border-top-right-radius: 20px;
-            border-top-left-radius: 20px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+    }
+}
+
+@media (max-width:680px) {
+    .main-post {
+        width: 500px;
+    }
+}
+
+@media (max-width:580px) {
+    .main-post {
+        width: 450px;
+
+        .photo {
+            height: 370px;
         }
 
         .user {
-            img {
-                border-radius: 50%;
+            h1 {
+                font-size: 16px;
+            }
+
+            .tags {
+                font-size: 14px;
+            }
+
+            p {
+                font-size: 12px;
             }
         }
+    }
+}
 
-        h1 {
-            font-size: 20px;
-            font-weight: 600;
-        }
+@media (max-width:520px) {
+    .main-post {
+        width: 400px;
+    }
+}
 
-        p {
-            font-size: 14px;
-            font-weight: 400;
-            min-height: 100px;
-            max-height: 100px;
-            overflow-y: scroll;
-        }
+@media (max-width:450px) {
+    .main-post {
+        width: 350px;
 
-        .btns {
-            img {
-                width: 30px;
-                height: 30px;
-                cursor: pointer;
-            }
+        .photo {
+            height: 340px;
         }
+    }
+}
+
+@media (max-width:420px) {
+    .main-post {
+        width: 320px;
     }
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
 import { useState } from "react";
-import Header from "../Header/Header";
 const Login = () => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 

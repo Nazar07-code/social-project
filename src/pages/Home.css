@@ -11,8 +11,7 @@
     p {
         font-size: 15px;
         font-weight: 400;
-        min-height: 100px;
-        max-height: 200px;
+        max-height: 150px;
         overflow-y: auto;
     }
 

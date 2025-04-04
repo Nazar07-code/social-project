@@ -1,122 +1,84 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Home.css";
 import { Comments } from "../components/Comments/Comment";
+import instance from "../axios";
 
 function Home() {
-  const settings = {
-    dots: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
-
-  const [isLiked, setIsLiked] = useState(false);
-  const liked = () => {
-    setIsLiked(!isLiked);
-  };
-
-  const [isSaved, setIsSaved] = useState(false);
-  const saved = () => {
-    setIsSaved(!isSaved);
-  };
-
+  const [posts, setPosts] = useState([]);
+  const [isLiked, setIsLiked] = useState({});
+  const [isSaved, setIsSaved] = useState({});
   const [commentsChangeModal, setCommentsChangeModal] = useState(false);
+
+  useEffect(() => {
+    instance
+      .get("/posts/")
+      .then((res) => setPosts(res.data))
+      .catch((err) => console.warn(err));
+  }, []);
+
+  const liked = (postId) => {
+    setIsLiked((prev) => ({ ...prev, [postId]: !prev[postId] }));
+  };
+
+  const saved = (postId) => {
+    setIsSaved((prev) => ({ ...prev, [postId]: !prev[postId] }));
+  };
+
   const changeComments = () => {
     setCommentsChangeModal((prev) => !prev);
   };
 
   return (
     <div className="main-posts my-10 flex flex-col justify-center items-center gap-[100px]">
-      {/* {posts.map((post) => (
+      {posts.map((post) => (
         <div
           key={post.id}
           className="main-post w-[600px] flex flex-col gap-5 overflow-hidden"
         >
-          <img className="h-[400px]" src={post.image} alt="" />
+          <img
+            className="photo h-[400px]"
+            src={post.imageUrl || "/img.jpg"}
+            alt={post.title || "Post Image"}
+          />
           <div className="p-4 flex flex-col gap-4">
             <div className="user flex gap-4 items-center">
               <img
-                className="rounded-none w-8 h-8"
-                src="/images/avatar-default.svg"
-                alt=""
+                className="rounded-full w-8 h-8"
+                src={post.author_avatar || "/images/avatar-default.svg"}
+                alt={post.author_name}
               />
-              <h1>vherifdjknvdf</h1>
+              <h1 className="text-[20px] font-semibold">{post.author_name}</h1>
             </div>
-            <b className="tags">
-              {post.tags.map((tag, index) => (
-                <span key={index}>#{tag} </span>
-              ))}
-            </b>
-            <p>{post.description}</p>
+            <b className="tags">{post.tags?.join(", ") || "Без тегов"}</b>
+            <p>{post.content}</p>
             <div className="btns flex items-center justify-end gap-5">
-              <img
-                className=""
-                src={isLiked ? "/images/heart-active.svg" : "/images/heart.svg"}
-                onClick={liked}
-                alt=""
-              />
-              <img
-                className=""
-                src={isSaved ? "/images/saved-active.svg" : "/images/saved.svg"}
-                onClick={saved}
-                alt=""
-              />
-              <button onClick={changeComments}>
-                <img className="" src="/images/comment.svg" alt="" />
+              <button onClick={() => liked(post.id)} className="like-btn">
+                <img
+                  src={
+                    isLiked[post.id]
+                      ? "/images/heart-active.svg"
+                      : "/images/heart.svg"
+                  }
+                  alt="Like"
+                />
+              </button>
+              <button onClick={() => saved(post.id)} className="save-btn">
+                <img
+                  src={
+                    isSaved[post.id]
+                      ? "/images/saved-active.svg"
+                      : "/images/saved.svg"
+                  }
+                  alt="Save"
+                />
+              </button>
+              <button onClick={changeComments} className="comment-btn">
+                <img src="/images/comment.svg" alt="Comment" />
               </button>
             </div>
           </div>
         </div>
-      ))} */}
-      <div className="main-post w-[600px] flex flex-col gap-5 overflow-hidden">
-        <img className="photo h-[400px]" src="/img.jpg" alt="" />
-        <div className="p-4 flex flex-col gap-4">
-          <div className="user flex gap-4 items-center">
-            <img
-              className="rounded-full w-8 h-8"
-              src="/images/avatar-default.svg"
-              alt=""
-            />
-            <h1 className="text-[20px] font-semibold">vherifdjknvdf</h1>
-          </div>
-          <b className="tags">#bgfb, #gfdd</b>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id, magnam
-            voluptates minus debitis assumenda dolorem voluptatibus laboriosam
-            aperiam iste consectetur! Architecto ab voluptas iusto accusantium
-            cupiditate itaque dolores veritatis laborum! Lorem ipsum dolor, sit
-            amet consectetur adipisicing elit. Id, magnam voluptates minus
-            debitis assumenda dolorem voluptatibus laboriosam aperiam iste
-            consectetur! Architecto ab voluptas iusto accusantium cupiditate
-            itaque dolores veritatis laborum! Lorem ipsum dolor, sit amet
-            consectetur adipisicing elit. Id, magnam voluptates minus debitis
-            assumenda dolorem voluptatibus laboriosam aperiam iste consectetur!
-            Architecto ab voluptas iusto accusantium cupiditate itaque dolores
-            veritatis laborum! Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Id, magnam voluptates minus debitis assumenda
-            dolorem voluptatibus laboriosam aperiam iste consectetur! Architecto
-            ab voluptas iusto accusantium cupiditate itaque dolores veritatis
-            laborum!
-          </p>
-          <div className="btns flex items-center justify-end gap-5">
-            <img
-              className=""
-              src={isLiked ? "/images/heart-active.svg" : "/images/heart.svg"}
-              onClick={liked}
-              alt=""
-            />
-            <img
-              className=""
-              src={isSaved ? "/images/saved-active.svg" : "/images/saved.svg"}
-              onClick={saved}
-              alt=""
-            />
-            <button onClick={changeComments}>
-              <img className="" src="/images/comment.svg" alt="" />
-            </button>
-          </div>
-        </div>
-      </div>
+      ))}
       <Comments
         changeComments={changeComments}
         commentsChangeModal={commentsChangeModal}

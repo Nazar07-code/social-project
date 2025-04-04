@@ -50,9 +50,6 @@ function Register() {
           <input type="text" placeholder="Name" required />
         </div>
         <div className="input">
-          <input type="text" placeholder="Nickname (optional)" />
-        </div>
-        <div className="input">
           <input type="email" placeholder="Email" required />
           <img src="/images/mail.svg" alt="Email icon" />
         </div>
@@ -72,6 +69,13 @@ function Register() {
             className="cursor-pointer"
             alt="Toggle visibility"
             onClick={() => setIsPasswordShown((prev) => !prev)}
+          />
+        </div>
+        <div className="input">
+          <input
+            type={isPasswordShown ? "text" : "password"}
+            placeholder="Confirm password"
+            required
           />
         </div>
 

@@ -63,21 +63,20 @@
                 background-color: #0f12b6
             }
         }
-    }
-
-    .green {
-        background-color: #611f9e;
-        color: rgb(244, 236, 236);
-        padding: 10px 0;
-        width: 360px;
-        font-size: 18px;
-        font-weight: 500;
-        border-radius: 10px;
-        transition: all .2s linear;
-    }
-
-    .green:hover {
-        background-color: #a442ff;
+        .log-link {
+            background-color: #611f9e;
+            color: rgb(244, 236, 236);
+            padding: 10px 0;
+            width: 360px;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all .2s linear;
+    
+            &:hover {
+                background-color: #9240df;
+            }
+        }
     }
 }
 
@@ -127,12 +126,19 @@
         }
     }
 
-    .green {
+    .reg-link {
         background-color: #611f9e;
-    }
+        color: rgb(244, 236, 236);
+        padding: 10px 0;
+        width: 360px;
+        font-size: 18px;
+        font-weight: 500;
+        border-radius: 10px;
+        transition: all .2s linear;
 
-    .green:hover {
-        background-color: #a442ff;
+        &:hover {
+            background-color: #9240df;
+        }
     }
 
     button {

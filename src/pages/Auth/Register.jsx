@@ -1,18 +1,29 @@
 import React, { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRegister, selectIsAuth } from "../../redux/slices/auth";
 import "./Auth.css";
-import { Link } from "react-router-dom";
 
 function Register() {
+  const dispatch = useDispatch();
+  const isAuth = useSelector(selectIsAuth);
+
   const [avatarPreview, setAvatarPreview] = useState(null);
-  const [fileName, setFilename] = useState("");
+  const [avatar, setAvatar] = useState(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
+    setAvatar(file);
     if (!file) {
-      setFilename("");
+      setAvatarPreview(null);
       return;
     }
+
     const reader = new FileReader();
     reader.onloadend = () => {
       setAvatarPreview(reader.result);
@@ -20,9 +31,34 @@ function Register() {
     reader.readAsDataURL(file);
   };
 
+  const handleSubmit = async () => {
+    if (password !== confirmPassword) return alert("Пароли не совпадают!");
+
+    if (password.length < 8) return alert("Password length less than 8");
+
+    const formData = new FormData();
+    formData.append("fullName", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    if (avatar) {
+      formData.append("avatar", avatar);
+    }
+
+    const res = await dispatch(fetchRegister(formData));
+    if (!res.payload) return alert("Ошибка при регистрации");
+
+    if ("token" in res.payload) {
+      window.localStorage.setItem("token", res.payload.token);
+    }
+  };
+
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="register">
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <div className="avatar">
           <input
             type="file"
@@ -40,17 +76,29 @@ function Register() {
               />
             ) : (
               <div className="w-full h-full rounded-full flex items-center justify-center">
-                <img className=" w-[35px]" src="/images/photo.svg" alt="" />
+                <img className="w-[35px]" src="/images/photo.svg" alt="" />
               </div>
             )}
           </label>
         </div>
 
         <div className="input">
-          <input type="text" placeholder="Name" required />
+          <input
+            type="text"
+            placeholder="Name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
         <div className="input">
-          <input type="email" placeholder="Email" required />
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <img src="/images/mail.svg" alt="Email icon" />
         </div>
 
@@ -59,6 +107,8 @@ function Register() {
             type={isPasswordShown ? "text" : "password"}
             placeholder="Password"
             required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <img
             src={
@@ -76,14 +126,16 @@ function Register() {
             type={isPasswordShown ? "text" : "password"}
             placeholder="Confirm password"
             required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
 
         <button type="submit">Create new account</button>
+        <Link to="/auth/login">
+          <button className="log-link">Login</button>
+        </Link>
       </form>
-      <Link to="/auth/login">
-        <button className="green">Login</button>
-      </Link>
     </div>
   );
 }

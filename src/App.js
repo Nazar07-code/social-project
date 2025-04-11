@@ -56,7 +56,14 @@ function App() {
             </MainLayout>
           }
         />
-        <Route path="/me/CreatePost" element={<CreatePost />} />
+        <Route
+          path="/me/CreatePost"
+          element={
+            <MainLayout>
+              <CreatePost />
+            </MainLayout>
+          }
+        />
         <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/login" element={<Login />} />
       </Routes>

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRegister, selectIsAuth } from "../../redux/slices/auth";
+import {
+  fetchAuth,
+  fetchRegister,
+  selectIsAuth,
+} from "../../redux/slices/auth";
 import "./Auth.css";
 
 function Register() {
@@ -31,25 +35,33 @@ function Register() {
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (password !== confirmPassword) return alert("Пароли не совпадают!");
-
     if (password.length < 8) return alert("Password length less than 8");
 
     const formData = new FormData();
-    formData.append("fullName", name);
+    formData.append("username", name);
+    formData.append("first_name", name);
+    formData.append("last_name", "");
     formData.append("email", email);
     formData.append("password", password);
-    if (avatar) {
-      formData.append("avatar", avatar);
-    }
+    if (avatar) formData.append("avatar", avatar);
 
     const res = await dispatch(fetchRegister(formData));
-    if (!res.payload) return alert("Ошибка при регистрации");
 
-    if ("token" in res.payload) {
-      window.localStorage.setItem("token", res.payload.token);
+    if (!res.payload || res.payload.message !== "Пользователь создан") {
+      return alert("Ошибка при регистрации");
     }
+
+    const loginRes = await dispatch(fetchAuth({ email, password }));
+
+    if (!loginRes.payload || !loginRes.payload.token) {
+      return alert("Ошибка при авторизации после регистрации");
+    }
+
+    window.localStorage.setItem("token", loginRes.payload.token);
+    // window.localStorage.setItem("user", JSON.stringify(loginRes.payload.user));
   };
 
   if (isAuth) {

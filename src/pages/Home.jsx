@@ -29,14 +29,14 @@ function Home() {
   };
 
   return (
-    <div className="main-posts my-10 flex flex-col justify-center items-center gap-[100px]">
+    <div className="main-posts flex flex-col justify-center items-center gap-[100px]">
       {posts.map((post) => (
         <div
           key={post.id}
           className="main-post w-[600px] flex flex-col gap-5 overflow-hidden"
         >
           <img
-            className="photo h-[400px]"
+            className="photo"
             src={post.file || "/img.jpg"}
             alt=""
           />
@@ -46,7 +46,9 @@ function Home() {
                 className="rounded-full w-8 h-8"
                 src={post.avatar || "/images/avatar-default.svg"}
               />
-              <h1 className="text-[20px] font-semibold">{post.user.username}</h1>
+              <h1 className="text-[20px] font-semibold">
+                {post.user.username}
+              </h1>
             </div>
             <b className="tags">{post.tags || "Без тегов"}</b>
             <p className="description">{post.description}</p>

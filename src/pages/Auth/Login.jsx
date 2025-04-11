@@ -15,19 +15,22 @@ const Login = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "777889@gmail.com",
+      password: "pythonpython",
     },
     mode: "onChange",
   });
 
   const onSubmit = async (values) => {
     const data = await dispatch(fetchAuth(values));
+    console.log(data);
+    
     if (!data.payload) {
       return alert("Incorrect login or password");
     }
     if ("token" in data.payload) {
-      window.localStorage.setItem("token", data.payload.token);
+      localStorage.setItem("token", data.payload.token);
+      localStorage.setItem("user", JSON.stringify(data.payload.user));
     }
   };
 
@@ -43,7 +46,7 @@ const Login = () => {
         <input
           type="email"
           placeholder="Email"
-          {...register("email", { required: "Введите email" })}
+          {...register("email", { required: "Enter email" })}
         />
         <img src="/images/mail.svg" alt="Email icon" />
       </div>
@@ -53,7 +56,7 @@ const Login = () => {
         <input
           type={isPasswordShown ? "text" : "password"}
           placeholder="Password"
-          {...register("password", { required: "Введите пароль" })}
+          {...register("password", { required: "Enter password" })}
         />
         <img
           src={
@@ -68,7 +71,11 @@ const Login = () => {
         <span className="error">{errors.password.message}</span>
       )}
 
-      <button className="log-in cursor-pointer" type="submit" disabled={!isValid}>
+      <button
+        className="log-in cursor-pointer"
+        type="submit"
+        disabled={!isValid}
+      >
         Login
       </button>
       <Link to="/auth/register">

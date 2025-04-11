@@ -6,14 +6,20 @@ import { selectIsAuth } from "../../redux/slices/auth";
 
 const Header = () => {
   const isAuth = useSelector(selectIsAuth);
+  const user = useSelector((state) => state.auth.data?.user);
+
   return (
     <div className="header">
       <Link to="/" className="logo cursor-pointer">
-        <img className="w-[50px]" src="/images/logo.svg" alt="" />
+        <img className="w-[50px]" src="/images/logo.svg" alt="logo" />
       </Link>
       {isAuth ? (
-        <Link to="/" className="rounded-full w-[50px] bg-gray-500 p-1">
-          <img src="/images/avatar-default.svg" alt="" />
+        <Link to="/me/posts" className="header-avatar rounded-full bg-gray-500">
+          <img
+            className="rounded-full"
+            src={user.avatar || "/images/avatar-default.svg"}
+            alt="avatar"
+          />
         </Link>
       ) : (
         <Link
@@ -21,7 +27,7 @@ const Header = () => {
           className="log-in flex items-center rounded-xl gap-1 py-2 px-4"
         >
           <button>Log in</button>
-          <img className="w-[30px]" src="/images/log-in.svg" alt="" />
+          <img className="w-[30px]" src="/images/log-in.svg" alt="login" />
         </Link>
       )}
     </div>

@@ -8,7 +8,11 @@ import User from "./components/User/User";
 import Posts from "./components/Posts/Posts";
 import Favorites from "./components/Favorites/Favorites";
 import Saved from "./components/Saved/Saved";
-import CreatePost from "./pages/Create Post/CreatePost";
+import CreatePost from "./components/Create Post/CreatePost";
+import { useSelector } from "react-redux";
+
+
+const userId = localStorage.getItem('token')
 
 const MainLayout = ({ children }) => (
   <>
@@ -30,7 +34,7 @@ function App() {
           }
         />
         <Route
-          path="/me/posts"
+          path="/:id/posts"
           element={
             <MainLayout>
               <User />
@@ -39,7 +43,7 @@ function App() {
           }
         />
         <Route
-          path="/me/favorites"
+          path="/:id/favorites"
           element={
             <MainLayout>
               <User />
@@ -48,7 +52,7 @@ function App() {
           }
         />
         <Route
-          path="/me/saved"
+          path="/:id/saved"
           element={
             <MainLayout>
               <User />
@@ -57,7 +61,7 @@ function App() {
           }
         />
         <Route
-          path="/me/CreatePost"
+          path="/:id/CreatePost"
           element={
             <MainLayout>
               <CreatePost />
@@ -66,6 +70,7 @@ function App() {
         />
         <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/login" element={<Login />} />
+        <Route path="/:id/editMe" element />
       </Routes>
     </>
   );

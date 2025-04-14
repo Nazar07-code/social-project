@@ -7,6 +7,8 @@ import { selectIsAuth } from "../../redux/slices/auth";
 const Header = () => {
   const isAuth = useSelector(selectIsAuth);
   const user = useSelector((state) => state.auth.data?.user);
+  console.log(user);
+  
 
   return (
     <div className="header">
@@ -17,7 +19,7 @@ const Header = () => {
         <Link to="/me/posts" className="header-avatar rounded-full bg-gray-500">
           <img
             className="rounded-full"
-            src={user.avatar || "/images/avatar-default.svg"}
+            src={user?.avatar || "/images/avatar-default.svg"}
             alt="avatar"
           />
         </Link>

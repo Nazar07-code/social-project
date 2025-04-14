@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createPost } from "../../redux/slices/posts";
-import './CreatePost.css'
+import "./CreatePost.css";
+import { useNavigate } from "react-router";
 
 const CreatePost = () => {
-  const [media, setMedia] = useState(null);
+  const navigate = useNavigate();
+
+  const [file, setFile] = useState(null);
   const [mediaPreview, setMediaPreview] = useState("");
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
@@ -14,7 +17,7 @@ const CreatePost = () => {
 
   const handleMediaUpload = (e) => {
     const file = e.target.files[0];
-    setMedia(file);
+    setFile(file);
     if (!file) {
       setMediaPreview("");
       return;
@@ -29,17 +32,15 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
+    formData.append("file", file);
     formData.append("title", title);
     formData.append("tags", tags);
     formData.append("description", description);
-    if (media) formData.append("media", media);
 
-    await dispatch(createPost(formData));
-    setTitle("");
-    setTags("");
-    setDescription("");
-    setMedia(null);
-    setMediaPreview("");
+    const result = await dispatch(createPost(formData));
+    if (result.payload) {
+      navigate(-1, { state: { newPost: result.payload } });
+    }
   };
 
   return (
@@ -52,6 +53,7 @@ const CreatePost = () => {
               type="file"
               accept="image/*,video/*"
               onChange={handleMediaUpload}
+              required
             />
             {mediaPreview ? (
               <img

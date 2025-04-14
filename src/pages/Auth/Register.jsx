@@ -42,7 +42,7 @@ function Register() {
 
     const formData = new FormData();
     formData.append("username", name);
-    formData.append("first_name", name);
+    formData.append("first_name", "");
     formData.append("last_name", "");
     formData.append("email", email);
     formData.append("password", password);
@@ -61,7 +61,8 @@ function Register() {
     }
 
     window.localStorage.setItem("token", loginRes.payload.token);
-    // window.localStorage.setItem("user", JSON.stringify(loginRes.payload.user));
+    window.localStorage.setItem("user", JSON.stringify(loginRes.payload.user));
+    
   };
 
   if (isAuth) {

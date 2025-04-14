@@ -11,7 +11,7 @@ const User = () => {
         <div className="avatar">
           <img
             className="w-[120px] h-[120px] mr-1 bg-gray-300 rounded-full object-cover"
-            src={user.avatar || "/images/avatar-default.svg"}
+            src={user?.avatar || "/images/avatar-default.svg"}
             alt="avatar"
           />
         </div>
@@ -19,10 +19,10 @@ const User = () => {
         <div className="flex flex-col gap-5">
           <div>
             <div className="flex items-center justify-between gap-4">
-              <div className="name text-[20px]">
-                {user.first_name || user.username}
-              </div>
               <div className="nickname font-bold">@{user.username}</div>
+              <Link>
+                <button>Edit profile</button>
+              </Link>
               <div className="flex gap-2">
                 <Link to="/me/createPost" className="add-post">
                   Add new post

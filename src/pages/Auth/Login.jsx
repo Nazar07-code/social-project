@@ -15,16 +15,14 @@ const Login = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      email: "777889@gmail.com",
-      password: "pythonpython",
+      email: "",
+      password: "",
     },
     mode: "onChange",
   });
 
   const onSubmit = async (values) => {
     const data = await dispatch(fetchAuth(values));
-    console.log(data);
-    
     if (!data.payload) {
       return alert("Incorrect login or password");
     }

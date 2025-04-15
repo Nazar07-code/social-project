@@ -10,9 +10,9 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token"); // или из Redux, если удобнее
+  const token = localStorage.getItem("token");
   if (token) {
-        config.headers.Authorization = `Token ${token}`; // если используется DRF Token Auth
+    config.headers.Authorization = `Token ${token}`;
   }
   return config;
 });

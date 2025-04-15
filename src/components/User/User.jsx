@@ -42,9 +42,9 @@ const User = () => {
       </div>
 
       <div className="links flex justify-center gap-20 mt-[40px] text-[20px]">
-        <Link to="/me/posts">Posts</Link>
-        <Link to="/me/favorites">Favorites</Link>
-        <Link to="/me/saved">Saved</Link>
+        <Link to="/:id/posts">Posts</Link>
+        <Link to="/:id/favorites">Favorites</Link>
+        <Link to="/:id/saved">Saved</Link>
       </div>
     </>
   );

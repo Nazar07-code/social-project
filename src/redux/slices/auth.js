@@ -47,6 +47,39 @@ const initialState = {
   status: "loaded",
 };
 
+export const updateUserMass = createAsyncThunk(
+  "auth/updateUserMass",
+  async ({ userId, postId, type }, { getState, rejectWithValue }) => {
+    try {
+      const { auth } = getState();
+      const userMass = { ...auth.data.user.mass };
+
+      if (!userMass[`${type}_posts`]) {
+        userMass[`${type}_posts`] = [];
+      }
+
+      const alreadyExists = userMass[`${type}_posts`].includes(postId);
+      const updatedArray = alreadyExists
+        ? userMass[`${type}_posts`].filter((id) => id !== postId)
+        : [...userMass[`${type}_posts`], postId];
+
+      const updatedUser = {
+        ...auth.data.user,
+        mass: {
+          ...userMass,
+          [`${type}_posts`]: updatedArray,
+        },
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      return updatedUser;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -84,6 +117,11 @@ const authSlice = createSlice({
       .addCase(fetchRegister.rejected, (state) => {
         state.status = "error";
         state.data = null;
+      })
+      .addCase(updateUserMass.fulfilled, (state, action) => {
+        if (state.data) {
+          state.data.user = action.payload;
+        }
       });
   },
 });

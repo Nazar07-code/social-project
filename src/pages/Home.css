@@ -9,12 +9,6 @@
             object-fit: cover;
         }
 
-        img {
-            object-fit: cover;
-            border-top-right-radius: 20px;
-            border-top-left-radius: 20px;
-        }
-
         .description {
             font-size: 15px;
             font-weight: 400;

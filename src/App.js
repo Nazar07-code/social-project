@@ -9,10 +9,8 @@ import Posts from "./components/Posts/Posts";
 import Favorites from "./components/Favorites/Favorites";
 import Saved from "./components/Saved/Saved";
 import CreatePost from "./components/Create Post/CreatePost";
-import { useSelector } from "react-redux";
 
-
-const userId = localStorage.getItem('token')
+const userId = localStorage.getItem("token");
 
 const MainLayout = ({ children }) => (
   <>

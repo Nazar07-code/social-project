@@ -7,7 +7,6 @@
     align-items: center;
 
     .favorite-post {
-        border: 1px solid black;
         position: relative;
 
         .img {

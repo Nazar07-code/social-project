@@ -1,5 +1,5 @@
-.edit {
-    background-color: #8e19e8;
+.editMe {
+    background-color: #7718be;
     color: #e8e8e8;
     border-radius: 10px;
     font-weight: 500;
@@ -60,7 +60,8 @@
     .plus {
         display: flex;
     }
-    .counts{
+
+    .counts {
         gap: 30px;
     }
 }

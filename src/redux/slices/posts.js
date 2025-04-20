@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import instance from "../../axios";
+import axios from "axios";
 
 export const createPost = createAsyncThunk(
   "posts/createPost",
@@ -14,6 +15,32 @@ export const createPost = createAsyncThunk(
       }
     );
     return data;
+  }
+);
+
+export const postSave = createAsyncThunk(
+  "posts/postSave",
+  async ({ user, saved_items }) => {
+    const res = await instance.post("/saved/", { user, saved_items });
+  }
+);
+export const postSaveDelete = createAsyncThunk(
+  "posts/postSave",
+  async (postId) => {
+    const res = await instance.delete(`/saved/${postId}`);
+  }
+);
+
+export const postLike = createAsyncThunk(
+  "posts/postLike",
+  async ({ user, like_items }) => {
+    const res = await instance.post("/like/", { user, like_items });
+  }
+);
+export const postLikeDelete = createAsyncThunk(
+  "posts/postLike",
+  async (postId) => {
+    const res = await instance.delete(`/saved/${postId}`);
   }
 );
 

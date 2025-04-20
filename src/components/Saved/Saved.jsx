@@ -1,31 +1,45 @@
-import React from "react";
-import "./Saved.css";
-import { Link } from "react-router";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { Link } from "react-router";
+import "./Saved.css";
 
 const Saved = () => {
-  const savedIds = useSelector(
-    (state) => state.auth.data?.user?.mass?.saved_posts || []
-  );
-  const posts = useSelector((state) => state.posts.items || []);
+  const user = useSelector((state) => state.auth.data?.user);
+  const [savedPosts, setSavedPosts] = useState([]);
 
-  const savedPosts = posts.filter((post) => savedIds.includes(post.id));
+  useEffect(() => {
+    const fetchSavedPosts = async () => {
+      try {
+        const res = await axios.get(
+          `http://127.0.0.1:8000/api/v1/saved/user/${user?.id}/`
+        );
+        const items = res.data[0]?.saved_items || [];
+        const posts = items.map((item) => item.post);
+        setSavedPosts(posts);
+      } catch (err) {
+        console.error("Ошибка при получении сохранённых постов:", err);
+      }
+    };
+
+    if (user?.id) fetchSavedPosts();
+  }, [user?.id]);
 
   return (
-    <div className="saved-posts">
-      {savedPosts.length > 0 ? (
+    <div className="posts">
+      {savedPosts.length ? (
         savedPosts.map((post) => (
           <Link key={post.id} to={`/posts/${post.id}`}>
-            <div className="saved-post">
-              <img className="img" src={post.file} alt={post.title} />
+            <div className="post">
+              <img className="img" src={post.file} alt="Saved" />
               <div className="overlay w-[25px] rounded-full p-1">
-                <img src="/images/more.svg" alt="" />
+                <img src="/images/more.svg" alt="more" />
               </div>
             </div>
           </Link>
         ))
       ) : (
-        <p>Нет сохранённых постов</p>
+        <p className="text-center">У вас пока нету сохранённых постов</p>
       )}
     </div>
   );

@@ -1,31 +1,45 @@
-import React from "react";
-import "./Favorite.css";
-import { Link } from "react-router"; // 🛠 Исправлено с "react-router"
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import "./Favorite.css";
 
 const Favorites = () => {
-  const favoriteIds = useSelector(
-    (state) => state.auth.data?.user?.mass?.favorite_posts || []
-  );
-  const posts = useSelector((state) => state.posts.items || []);
+  const user = useSelector((state) => state.auth.data?.user);
+  const [favoritePosts, setFavoritePosts] = useState([]);
 
-  const favoritePosts = posts.filter((post) => favoriteIds.includes(post.id));
+  useEffect(() => {
+    const fetchFavoritePosts = async () => {
+      try {
+        const res = await axios.get(
+          `http://127.0.0.1:8000/api/v1/like/user/${user?.id}/`
+        );
+        const items = res.data[0]?.like_items || [];
+        const posts = items.map((item) => item.post);
+        setFavoritePosts(posts);
+      } catch (err) {
+        console.error("Ошибка при получении понравившихся постов:", err);
+      }
+    };
+
+    if (user?.id) fetchFavoritePosts();
+  }, [user?.id]);
 
   return (
-    <div className="favorite-posts">
-      {favoritePosts.length > 0 ? (
+    <div className="posts">
+      {favoritePosts.length ? (
         favoritePosts.map((post) => (
           <Link key={post.id} to={`/posts/${post.id}`}>
-            <div className="favorite-post">
-              <img className="img" src={post.file} alt={post.title} />
+            <div className="post">
+              <img className="img" src={post.file} alt="Favorite" />
               <div className="overlay w-[25px] rounded-full p-1">
-                <img src="/images/more.svg" alt="" />
+                <img src="/images/more.svg" alt="more" />
               </div>
             </div>
           </Link>
         ))
       ) : (
-        <p>Нет понравившихся постов</p>
+        <p className="text-center">У вас пока нету понравившихся постов</p>
       )}
     </div>
   );

@@ -3,7 +3,8 @@ import "./Home.css";
 import { Comments } from "../components/Comments/Comment";
 import instance from "../axios";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserMass } from "../redux/slices/auth";
+import { postSave, postLike } from "../redux/slices/posts";
+import { Link } from "react-router";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -19,15 +20,24 @@ function Home() {
       .then((res) => setPosts(res.data))
       .catch((err) => console.warn(err));
   }, []);
-
   const liked = (postId) => {
     setIsLiked((prev) => ({ ...prev, [postId]: !prev[postId] }));
-    dispatch(updateUserMass({ userId: user.id, postId, type: "favorite" }));
+    dispatch(
+      postLike({
+        user: user.id,
+        like_items: [{ post: { id: postId } }],
+      })
+    );
   };
 
   const saved = (postId) => {
     setIsSaved((prev) => ({ ...prev, [postId]: !prev[postId] }));
-    dispatch(updateUserMass({ userId: user.id, postId, type: "saved" }));
+    dispatch(
+      postSave({
+        user: user.id,
+        saved_items: [{ post: { id: postId } }],
+      })
+    );
   };
 
   const changeComments = () => {
@@ -44,22 +54,30 @@ function Home() {
           <img className="photo" src={post.file || "/img.jpg"} alt="" />
           <div className="p-4 flex flex-col gap-4">
             <div className="user flex gap-4 items-center">
-              <img
-                className="rounded-full w-10 h-10"
-                src={post.avatar || "/images/avatar-default.svg"}
-                alt="avatar"
-              />
-              <h1 className="text-[20px] font-semibold">
+              <Link
+                to={`/user/${post.user.id}`}
+                className="cursor-pointer text-[20px] font-semibold"
+              >
+                <img
+                  className="rounded-full w-10 h-10"
+                  src={post.avatar || "/images/avatar-default.svg"}
+                  alt="avatar"
+                />
+              </Link>
+              <Link
+                to={`/user/${post.user.id}`}
+                className="cursor-pointer text-[20px] font-semibold"
+              >
                 {post.user.username}
-              </h1>
+              </Link>
             </div>
-            <b className="tags">{post.tags || "Без тегов"}</b>
+            <b className="tags">{post.tags}</b>
             <p className="description">{post.description}</p>
             <div className="btns flex items-center justify-end gap-5">
               <button onClick={() => liked(post.id)} className="like-btn">
                 <img
                   src={
-                    user?.mass.favorite_posts?.includes(post.id)
+                    user?.mass?.favorite_posts?.includes(post.id)
                       ? "/images/heart-active.svg"
                       : "/images/heart.svg"
                   }
@@ -69,7 +87,7 @@ function Home() {
               <button onClick={() => saved(post.id)} className="save-btn">
                 <img
                   src={
-                    user?.mass.saved_posts?.includes(post.id)
+                    user?.mass?.saved_posts?.includes(post.id)
                       ? "/images/saved-active.svg"
                       : "/images/saved.svg"
                   }

@@ -39,6 +39,7 @@ function Register() {
     e.preventDefault();
     if (password !== confirmPassword) return alert("Пароли не совпадают!");
     if (password.length < 8) return alert("Password length less than 8");
+    if (name.length < 3) return alert("User name length less than 3");
 
     const formData = new FormData();
     formData.append("username", name);
@@ -46,7 +47,11 @@ function Register() {
     formData.append("last_name", "");
     formData.append("email", email);
     formData.append("password", password);
-    if (avatar) formData.append("avatar", avatar);
+    if (avatar) {
+      formData.append("avatar", avatar);
+    } else {
+      formData.append("avatar", "");
+    }
 
     const res = await dispatch(fetchRegister(formData));
 
@@ -62,7 +67,6 @@ function Register() {
 
     window.localStorage.setItem("token", loginRes.payload.token);
     window.localStorage.setItem("user", JSON.stringify(loginRes.payload.user));
-    
   };
 
   if (isAuth) {

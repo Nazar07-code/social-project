@@ -14,7 +14,10 @@ const Header = () => {
         <img className="w-[50px]" src="/images/logo.svg" alt="logo" />
       </Link>
       {isAuth ? (
-        <Link to="/:id/posts" className="header-avatar rounded-full bg-gray-500">
+        <Link
+          to={`/${user.id}/posts`}
+          className="header-avatar rounded-full bg-gray-500"
+        >
           <img
             className="rounded-full"
             src={user?.avatar || "/images/avatar-default.svg"}
@@ -26,7 +29,7 @@ const Header = () => {
           to="/auth/login"
           className="log-in flex items-center rounded-xl gap-1 py-2 px-4"
         >
-          <button>Log in</button>
+          <button>Login</button>
           <img className="w-[30px]" src="/images/log-in.svg" alt="login" />
         </Link>
       )}

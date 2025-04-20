@@ -38,7 +38,27 @@ const CreatePost = () => {
     formData.append("description", description);
 
     const result = await dispatch(createPost(formData));
+
     if (result.payload) {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      let userPosts = [];
+
+      try {
+        const rawUserPosts = storedUser?.mass?.user_posts;
+
+        if (typeof rawUserPosts === "string") {
+          userPosts = JSON.parse(rawUserPosts);
+        } else if (Array.isArray(rawUserPosts)) {
+          userPosts = rawUserPosts.filter((el) => typeof el === "number");
+        }
+      } catch (err) {
+        console.error("Parsing error in user_posts:", err);
+        userPosts = [];
+      }
+
+      userPosts.push(result.payload.id);
+      storedUser.mass.user_posts = userPosts;
+      localStorage.setItem("user", JSON.stringify(storedUser));
       navigate(-1, { state: { newPost: result.payload } });
     }
   };
@@ -86,7 +106,8 @@ const CreatePost = () => {
           />
           <textarea
             className="description-input p-5"
-            placeholder="Description (optional)"
+            placeholder="Description"
+            required
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>

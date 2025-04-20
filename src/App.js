@@ -8,9 +8,11 @@ import User from "./components/User/User";
 import Posts from "./components/Posts/Posts";
 import Favorites from "./components/Favorites/Favorites";
 import Saved from "./components/Saved/Saved";
-import CreatePost from "./components/Create Post/CreatePost";
-
-const userId = localStorage.getItem("token");
+import CreatePost from "./pages/Create Post/CreatePost";
+import EditMe from "./pages/Edit User/EditMe";
+import { useSelector } from "react-redux";
+import PostDetails from "./pages/FullPost/FullPost";
+import ReadUser from "./pages/Read User/ReadUser";
 
 const MainLayout = ({ children }) => (
   <>
@@ -20,6 +22,7 @@ const MainLayout = ({ children }) => (
 );
 
 function App() {
+  const user = useSelector((state) => state.auth.data?.user);
   return (
     <>
       <Routes>
@@ -32,7 +35,7 @@ function App() {
           }
         />
         <Route
-          path="/:id/posts"
+          path={`/${user?.id}/posts`}
           element={
             <MainLayout>
               <User />
@@ -41,7 +44,7 @@ function App() {
           }
         />
         <Route
-          path="/:id/favorites"
+          path={`/${user?.id}/favorites`}
           element={
             <MainLayout>
               <User />
@@ -50,7 +53,7 @@ function App() {
           }
         />
         <Route
-          path="/:id/saved"
+          path={`/${user?.id}/saved`}
           element={
             <MainLayout>
               <User />
@@ -59,7 +62,7 @@ function App() {
           }
         />
         <Route
-          path="/:id/CreatePost"
+          path={`/${user?.id}/createPost`}
           element={
             <MainLayout>
               <CreatePost />
@@ -68,7 +71,23 @@ function App() {
         />
         <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/login" element={<Login />} />
-        <Route path="/:id/editMe" element />
+        <Route path={`/${user?.id}/editMe`} element={<EditMe />} />
+        <Route
+          path="posts/:id"
+          element={
+            <MainLayout>
+              <PostDetails />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="user/:id"
+          element={
+            <MainLayout>
+              <ReadUser />
+            </MainLayout>
+          }
+        />
       </Routes>
     </>
   );

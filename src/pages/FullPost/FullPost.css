@@ -27,7 +27,7 @@
 }
 
 @media (max-width:768px) {
-    .main-post {
+    .full-post {
         box-shadow: none;
         border: 2px solid #e8e8e8;
         border-top: 0;
@@ -35,13 +35,13 @@
 }
 
 @media (max-width:680px) {
-    .main-post {
+    .full-post {
         width: 500px;
     }
 }
 
 @media (max-width:580px) {
-    .main-post {
+    .full-post {
         width: 450px;
 
         .user {
@@ -61,19 +61,19 @@
 }
 
 @media (max-width:520px) {
-    .main-post {
+    .full-post {
         width: 400px;
     }
 }
 
 @media (max-width:450px) {
-    .main-post {
+    .full-post {
         width: 350px;
     }
 }
 
 @media (max-width:420px) {
-    .main-post {
+    .full-post {
         width: 320px;
     }
 }
